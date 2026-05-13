@@ -25,19 +25,19 @@ import type { LucideIcon } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const services: Array<[string, string, LucideIcon]> = [
-  ["Freight Brokerage", "Capacity matched to freight with enterprise discipline and market-aware execution.", Truck],
-  ["Logistics Coordination", "Every handoff, dock window, and exception orchestrated from one operating rhythm.", Route],
-  ["Carrier Network", "A high-trust carrier graph built for reliability, coverage, and responsive deployment.", Network],
-  ["Shipment Visibility", "Route-level intelligence, live milestones, and exception signals before they become noise.", Radar],
-  ["Truckload Solutions", "Full-truckload coverage with the speed, documentation, and control modern teams expect.", Boxes],
-  ["Dispatch Coordination", "Dispatch operations tuned for freight velocity, driver communication, and clean execution.", Warehouse],
+  ["24/7 Dispatch Assistance", "Dedicated dispatch support available around the clock to keep your trucks loaded and operational.", Truck],
+  ["Logistics Coordination", "Strategic load planning and continuous dispatching designed to minimize idle truck hours", Route],
+  ["Carrier Network", "We negotiate directly with brokers to secure top-paying freight rates for your business.", Network],
+  ["Weekly Revenue Reporting", "Clear earning summaries and operational visibility to help track fleet performance.", Radar],
+  ["Truckload Solutions", "Rate confirmations, invoicing, compliance, and documentation handled professionally and efficiently.", Boxes],
+  ["Fuel Advance & Swift Payments", "Optimized payment coordination and fuel advance assistance to improve cash flow stability.", Warehouse],
 ];
 
 const benefits = [
-  ["Faster coordination", "Remove the lag between quote, dispatch, dock, and delivery."],
-  ["Operational visibility", "Know what is moving, where it is exposed, and what needs attention."],
-  ["Carrier management", "Coordinate trusted capacity across lanes, exceptions, and market shifts."],
-  ["Real-time updates", "Turn freight events into immediate operating decisions."],
+  ["Flexible Pricing Structure", "Competitive flat rates and percentage-based dispatch options tailored to carrier preferences."],
+  ["Efficient & Profitable Hauling", "We focus on maximizing loaded miles and increasing operational profitability."],
+  ["Reliable Dispatch Team", "Experienced dispatch specialists managing freight operations with precision and consistency.."],
+  ["Strong Broker & Carrier Network", "Access to a trusted network of over 3,000 brokers and carriers across the United States."],
 ];
 
 function TruckIllustration() {
