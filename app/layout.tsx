@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FreightOS | Modern Freight Infrastructure",
+  title: "FreightHouse Logistics | Dispatching Beyond Expectations",
   description:
-    "A cinematic logistics technology website built around scroll-controlled freight movement.",
+    "Freight Dispatch Built for Maximum Carrier Profitability",
 };
 
 export default function RootLayout({
