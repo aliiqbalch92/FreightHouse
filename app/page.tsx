@@ -26,19 +26,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services: Array<[string, string, LucideIcon]> = [
   ["24/7 Dispatch Assistance", "Dedicated dispatch support available around the clock to keep your trucks loaded and operational.", Truck],
-  ["Logistics Coordination", "Strategic load planning and continuous dispatching designed to minimize idle truck hours", Route],
-  ["Carrier Network", "We negotiate directly with brokers to secure top-paying freight rates for your business.", Network],
-  ["Weekly Revenue Reporting", "Clear earning summaries and operational visibility to help track fleet performance.", Radar],
-  ["Truckload Solutions", "Rate confirmations, invoicing, compliance, and documentation handled professionally and efficiently.", Boxes],
-  ["Fuel Advance & Swift Payments", "Optimized payment coordination and fuel advance assistance to improve cash flow stability.", Warehouse],
+  ["Broker Negotiation", "We negotiate directly with brokers to secure top-paying freight rates for your business.", Route],
+  ["Paperwork Management", "Rate confirmations, invoicing, compliance, and documentation handled professionally.", Boxes],
+  ["Weekly Revenue Reporting", "Clear earning summaries and operational visibility to help track fleet performance.", ChartNoAxesCombined],
+  ["Fuel Advance & Swift Payments", "Payment coordination and fuel advance assistance built to improve cash flow stability.", Gauge],
+  ["Reduced Downtime", "Strategic load planning and continuous dispatching designed to minimize idle truck hours.", Warehouse],
 ];
 
 const benefits = [
-  ["Flexible Pricing Structure", "Competitive flat rates and percentage-based dispatch options tailored to carrier preferences."],
-  ["Efficient & Profitable Hauling", "We focus on maximizing loaded miles and increasing operational profitability."],
-  ["Reliable Dispatch Team", "Experienced dispatch specialists managing freight operations with precision and consistency.."],
-  ["Strong Broker & Carrier Network", "Access to a trusted network of over 3,000 brokers and carriers across the United States."],
+  ["Profitable hauling", "Maximize loaded miles and increase operational profitability."],
+  ["Reliable dispatch team", "Experienced specialists managing freight operations with precision and consistency."],
+  ["3,000+ network", "Access to a trusted broker and carrier network across the United States."],
+  ["Flexible pricing", "Flat-rate and percentage-based dispatch options tailored to carrier preferences."],
 ];
+
+const equipment = ["Reefer", "Flatbed", "Step Deck", "Dry Van", "Power Only", "Box Truck"];
 
 function TruckIllustration() {
   return (
@@ -116,15 +118,15 @@ function Nav() {
     <header className="nav">
       <a className="brand" href="#top">
         <span />
-        FreightOS
+        Freight House
       </a>
       <nav>
-        <a href="#network">Network</a>
-        <a href="#platform">Platform</a>
+        <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
       </nav>
       <a className="nav-cta" href="#contact">
-        Get a Quote
+        Start Dispatching
       </a>
     </header>
   );
@@ -138,25 +140,28 @@ function Hero() {
       <div className="hero-image" />
       <div className="light-sweep" />
       <motion.div className="hero-copy" style={{ y }}>
-        <p>Modern freight movement</p>
-        <h1>Freight infrastructure for the modern world.</h1>
+        <p>Freight House Logistics</p>
+        <h1>Freight dispatch built for maximum carrier profitability.</h1>
+        <span className="hero-subcopy">
+          24/7 dispatch operations engineered to keep your trucks moving, maximize revenue,
+          reduce downtime, and eliminate broker negotiation headaches.
+        </span>
         <div className="hero-meta">
-          <span>Brokerage</span>
-          <span>Visibility</span>
-          <span>Carrier operations</span>
+          <a href="#contact">Start Dispatching</a>
+          <a href="#contact">Request Consultation</a>
         </div>
       </motion.div>
-      <div className="scroll-cue">Scroll to move freight</div>
+      <div className="scroll-cue">Scroll to move your fleet</div>
     </section>
   );
 }
 
 function StorySection() {
   const lines = [
-    "Every route connected.",
-    "From warehouse to highway.",
-    "Built for operational precision.",
-    "Freight at enterprise scale.",
+    "Dispatching without downtime.",
+    "Higher-paying loads. Better margins.",
+    "Operational precision for modern trucking.",
+    "Keeping America’s trucks moving.",
   ];
   return (
     <section className="story" id="journey">
@@ -179,7 +184,7 @@ function StorySection() {
 
 function TechSection() {
   return (
-    <section className="tech-section">
+    <section className="tech-section" id="about">
       <div className="node-map">
         {Array.from({ length: 26 }).map((_, index) => (
           <span key={index} style={{ "--x": `${8 + ((index * 31) % 84)}%`, "--y": `${12 + ((index * 47) % 76)}%` } as React.CSSProperties} />
@@ -191,12 +196,17 @@ function TechSection() {
         </svg>
       </div>
       <div className="tech-copy">
-        <p>Logistics operating system</p>
-        <h2>Real-time freight intelligence across every route.</h2>
+        <p>Dispatching beyond expectations</p>
+        <h2>We operate as your dedicated logistics partner.</h2>
         <span>
-          Connected dispatch, carrier capacity, shipment milestones, and exception response in one
-          operational layer.
+          At Freight House Logistics, we do more than simply dispatch loads. We maximize
+          carrier profitability, minimize downtime, and streamline day-to-day trucking operations.
         </span>
+        <div className="about-points">
+          <b>No endless load board searches.</b>
+          <b>No wasted hours negotiating rates.</b>
+          <b>No operational stress.</b>
+        </div>
       </div>
     </section>
   );
@@ -205,8 +215,8 @@ function TechSection() {
 function EditorialSection() {
   return (
     <section className="editorial">
-      <p>Modern freight should not feel fragmented.</p>
-      <h2>Imagine freight operating as one connected intelligent system.</h2>
+      <p>Built around carrier success.</p>
+      <h2>Whether you are on the road or taking a break, Freight House keeps your business moving.</h2>
     </section>
   );
 }
@@ -214,8 +224,8 @@ function EditorialSection() {
 function ServicesSection() {
   return (
     <section className="services" id="services">
-      <div className="section-kicker">Capabilities</div>
-      <h2>Operational services, rebuilt for precision.</h2>
+      <div className="section-kicker">Carrier support</div>
+      <h2>Operational support designed for carriers.</h2>
       <div className="service-grid">
         {services.map(([title, copy, Icon], index) => (
           <motion.article
@@ -260,32 +270,32 @@ function NetworkSection() {
         </svg>
       </div>
       <div className="network-copy">
-        <p>Network</p>
-        <h2>Connected freight network built for scale.</h2>
-        <span>Brokerage, capacity, coordination, and shipment visibility across moving markets.</span>
+        <p>Broker and carrier network</p>
+        <h2>Strong freight coordination across the United States.</h2>
+        <span>Access to a trusted network of over 3,000 brokers and carriers, coordinated for profitable movement.</span>
       </div>
     </section>
   );
 }
 
 function PlatformSection() {
-  const rows = ["ORD -> DFW", "LAX -> PHX", "ATL -> MIA", "SEA -> DEN"];
+  const rows = ["Reefer -> Booked", "Flatbed -> Negotiating", "Dry Van -> Loaded", "Power Only -> Clear"];
   return (
     <section className="platform" id="platform">
       <div className="platform-copy">
-        <p>Platform</p>
-        <h2>Route intelligence for freight teams that cannot wait.</h2>
-        <span>Monitor every shipment signal, lane condition, and carrier event from a control surface built for operators.</span>
+        <p>Real-time trucking operations</p>
+        <h2>Route coordination, load planning, and paperwork without the friction.</h2>
+        <span>From broker negotiations and paperwork management to route coordination and load planning, Freight House works around the clock to keep your fleet running efficiently.</span>
       </div>
       <div className="dashboard">
         <div className="dash-top">
-          <span>Operations Command</span>
-          <b>98.7% on-track</b>
+          <span>Freight House Dispatch</span>
+          <b>24/7 coverage</b>
         </div>
         <div className="dash-main">
-          <div className="metric"><Gauge /> Dock dwell <strong>18m</strong></div>
-          <div className="metric"><Satellite /> Live routes <strong>742</strong></div>
-          <div className="metric"><ChartNoAxesCombined /> Cost variance <strong>-6.4%</strong></div>
+          <div className="metric"><Gauge /> Downtime focus <strong>Low</strong></div>
+          <div className="metric"><Satellite /> Network reach <strong>3k+</strong></div>
+          <div className="metric"><ChartNoAxesCombined /> Reporting <strong>Weekly</strong></div>
         </div>
         <div className="lane-list">
           {rows.map((row, index) => (
@@ -326,10 +336,11 @@ function BenefitsSection() {
 function TrustSection() {
   return (
     <section className="trust">
-      <h2>Trusted by companies moving modern commerce.</h2>
+      <p className="section-kicker">Equipment we dispatch</p>
+      <h2>Built for the equipment carriers run every day.</h2>
       <div>
-        {["NORTHSTAR", "VECTOR", "IRONLINE", "CIVIC", "MERIDIAN", "AXIS"].map((logo) => (
-          <span key={logo}>{logo}</span>
+        {equipment.map((item) => (
+          <span key={item}>{item}</span>
         ))}
       </div>
     </section>
@@ -341,11 +352,16 @@ function FinalCta() {
     <section className="final-cta" id="contact">
       <div className="hero-image" />
       <div className="cta-copy">
-        <p>Destination reached</p>
-        <h2>The future of freight starts here.</h2>
+        <p>Let’s move your fleet forward</p>
+        <h2>Dispatch engineered for profitability.</h2>
+        <div className="contact-grid">
+          <span>Office <b>Overland Park, Kansas 66212</b></span>
+          <span>Email <b>Freighthouse.KS@gmail.com</b></span>
+          <span>Phone <b>+1 (913) 386-5580</b></span>
+        </div>
         <div className="cta-actions">
-          <a href="mailto:ops@example.com">Get a Quote <ArrowRight size={18} /></a>
-          <a href="mailto:ops@example.com">Contact Us</a>
+          <a href="mailto:Freighthouse.KS@gmail.com">Start Dispatching <ArrowRight size={18} /></a>
+          <a href="tel:+19133865580">Request Consultation</a>
         </div>
       </div>
     </section>
