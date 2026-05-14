@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -42,70 +43,91 @@ const benefits = [
 
 const equipment = ["Reefer", "Flatbed", "Step Deck", "Dry Van", "Power Only", "Box Truck"];
 
+const proofPoints = ["24/7 support", "Top-paying freight", "Minimal downtime", "Reliable dispatching"];
+
 function TruckIllustration() {
   return (
-    <svg className="truck-svg" viewBox="0 0 900 360" aria-hidden="true">
-      <defs>
-        <linearGradient id="cab" x1="0" x2="1">
-          <stop offset="0" stopColor="#f7fbf8" />
-          <stop offset="0.45" stopColor="#b7c0bd" />
-          <stop offset="1" stopColor="#59615f" />
-        </linearGradient>
-        <linearGradient id="trailer" x1="0" x2="1">
-          <stop offset="0" stopColor="#202729" />
-          <stop offset="0.5" stopColor="#3f4947" />
-          <stop offset="1" stopColor="#151a1b" />
-        </linearGradient>
-        <filter id="truckGlow" x="-20%" y="-40%" width="140%" height="180%">
-          <feGaussianBlur stdDeviation="7" result="blur" />
-          <feColorMatrix
-            in="blur"
-            type="matrix"
-            values="0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 0.72 0 0 0 .5 0"
-          />
-          <feMerge>
-            <feMergeNode />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-      <g className="truck-shadow">
-        <ellipse cx="458" cy="298" rx="330" ry="34" fill="#000" opacity=".5" />
-      </g>
-      <g className="truck-body">
-        <rect x="65" y="95" width="520" height="138" rx="8" fill="url(#trailer)" />
-        <path d="M585 126h103l80 78v29H585z" fill="url(#cab)" />
-        <path d="M646 139h39l48 49h-87z" fill="#0d1213" opacity=".82" />
-        <path d="M97 116h452M96 149h453M96 183h453M96 215h452" stroke="#78827f" strokeOpacity=".25" />
-        <path d="M105 103h432" stroke="#fff" strokeOpacity=".22" strokeWidth="3" />
-        <path d="M610 233h165" stroke="#9affc7" strokeWidth="3" strokeLinecap="round" opacity=".7" />
-        <circle cx="180" cy="250" r="38" fill="#080a0b" />
-        <circle cx="180" cy="250" r="18" fill="#59615f" />
-        <circle cx="512" cy="250" r="38" fill="#080a0b" />
-        <circle cx="512" cy="250" r="18" fill="#59615f" />
-        <circle cx="673" cy="250" r="38" fill="#080a0b" />
-        <circle cx="673" cy="250" r="18" fill="#59615f" />
-        <path d="M770 210l37 10" stroke="#eafff4" strokeWidth="8" strokeLinecap="round" />
-        <path className="wire" d="M65 95h520l103 31 80 78v29H65zM646 139h39l48 49h-87zM96 149h453M96 183h453M180 250h493" />
-      </g>
-    </svg>
+    <img
+      className="truck-image"
+      src="/assets/freight-house-truck-optimized.png"
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+    />
   );
 }
 
 function JourneyRig() {
+  const trees = Array.from({ length: 18 }, (_, index) => index);
+  const palms = Array.from({ length: 8 }, (_, index) => index);
+  const buildings = Array.from({ length: 12 }, (_, index) => index);
+  const homes = Array.from({ length: 9 }, (_, index) => index);
+  const lamps = Array.from({ length: 10 }, (_, index) => index);
+
   return (
     <div className="journey-rig" aria-hidden="true">
-      <div className="scene-grid" />
-      <div className="road-perspective">
-        <span />
-        <span />
-        <span />
+      <div className="sky-layer sky-day" id="skyDay" />
+      <div className="sky-layer sky-noon" id="skyNoon" />
+      <div className="sky-layer sky-sunset" id="skySunset" />
+      <div className="sky-layer sky-night" id="skyNight" />
+      <div className="sun-glow" id="sunGlow" />
+      <div className="highway-horizon" />
+      <div className="environment-layer env-trees" id="envTrees">
+        <div className="tree-line tree-line-left">
+          {trees.map((tree) => (
+            <span key={`left-tree-${tree}`} style={{ "--i": tree } as CSSProperties} />
+          ))}
+        </div>
+        <div className="tree-line tree-line-right">
+          {trees.map((tree) => (
+            <span key={`right-tree-${tree}`} style={{ "--i": tree } as CSSProperties} />
+          ))}
+        </div>
       </div>
-      <div className="scan-field">
-        {Array.from({ length: 18 }).map((_, index) => (
-          <i key={index} style={{ "--i": index } as React.CSSProperties} />
-        ))}
+      <div className="environment-layer env-coast" id="envCoast">
+        <div className="ocean-strip" />
+        <div className="sand-strip" />
+        <div className="palm-line">
+          {palms.map((palm) => (
+            <span key={`palm-${palm}`} style={{ "--i": palm } as CSSProperties} />
+          ))}
+        </div>
       </div>
+      <div className="environment-layer env-city" id="envCity">
+        <div className="city-line">
+          {buildings.map((building) => (
+            <span key={`building-${building}`} style={{ "--i": building } as CSSProperties} />
+          ))}
+        </div>
+      </div>
+      <div className="environment-layer env-suburb" id="envSuburb">
+        <div className="home-line">
+          {homes.map((home) => (
+            <span key={`home-${home}`} style={{ "--i": home } as CSSProperties} />
+          ))}
+        </div>
+      </div>
+      <div className="environment-layer env-open" id="envOpen">
+        <div className="hill-line" />
+        <div className="road-sign sign-one">I-70</div>
+        <div className="road-sign sign-two">KANSAS</div>
+      </div>
+      <div className="environment-layer env-night" id="envNight">
+        <div className="night-city" />
+        <div className="lamp-line">
+          {lamps.map((lamp) => (
+            <span key={`lamp-${lamp}`} style={{ "--i": lamp } as CSSProperties} />
+          ))}
+        </div>
+      </div>
+      <div className="road-layer">
+        <span className="road-shoulder road-shoulder-left" />
+        <span className="road-shoulder road-shoulder-right" />
+        <span className="lane-line lane-line-a" />
+        <span className="lane-line lane-line-b" />
+        <span className="lane-line lane-line-c" />
+      </div>
+      <div className="speed-lines" />
       <div className="truck-wrap" id="truckRig">
         <TruckIllustration />
       </div>
@@ -141,7 +163,7 @@ function Hero() {
       <div className="light-sweep" />
       <motion.div className="hero-copy" style={{ y }}>
         <p>Freight House Logistics</p>
-        <h1>Freight dispatch built for maximum carrier profitability.</h1>
+        <h1>Freight dispatch built for carrier profitability.</h1>
         <span className="hero-subcopy">
           24/7 dispatch operations engineered to keep your trucks moving, maximize revenue,
           reduce downtime, and eliminate broker negotiation headaches.
@@ -187,7 +209,7 @@ function TechSection() {
     <section className="tech-section" id="about">
       <div className="node-map">
         {Array.from({ length: 26 }).map((_, index) => (
-          <span key={index} style={{ "--x": `${8 + ((index * 31) % 84)}%`, "--y": `${12 + ((index * 47) % 76)}%` } as React.CSSProperties} />
+          <span key={index} style={{ "--x": `${8 + ((index * 31) % 84)}%`, "--y": `${12 + ((index * 47) % 76)}%` } as CSSProperties} />
         ))}
         <svg viewBox="0 0 1000 500" preserveAspectRatio="none">
           <path d="M70 330 C230 190 310 410 472 252 S760 110 930 214" />
@@ -215,8 +237,52 @@ function TechSection() {
 function EditorialSection() {
   return (
     <section className="editorial">
-      <p>Built around carrier success.</p>
-      <h2>Whether you are on the road or taking a break, Freight House keeps your business moving.</h2>
+      <div className="editorial-layout">
+        <div className="editorial-copy">
+          <p>Built around carrier success.</p>
+          <h2>
+            Imagine dispatch as an <em>intelligent bridge</em> connecting every load,
+            route, broker, and truck.
+          </h2>
+        </div>
+        <div className="editorial-visual">
+          <div className="yard-card">
+            <span>Load board searches</span>
+            <b>Eliminated</b>
+          </div>
+          <div className="yard-card">
+            <span>Broker negotiation</span>
+            <b>Handled</b>
+          </div>
+          <div className="yard-card">
+            <span>Fleet movement</span>
+            <b>Continuous</b>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OperatingSystemSection() {
+  return (
+    <section className="os-section">
+      <div className="os-grid" />
+      <div className="os-copy">
+        <p>Freight House operating layer</p>
+        <h2>Dispatching beyond expectations.</h2>
+      </div>
+      <div className="os-letters" aria-hidden="true">
+        <span>F</span>
+        <span>H</span>
+        <span>O</span>
+        <span>S</span>
+      </div>
+      <div className="os-proof">
+        {proofPoints.map((point) => (
+          <span key={point}>{point}</span>
+        ))}
+      </div>
     </section>
   );
 }
@@ -282,6 +348,11 @@ function PlatformSection() {
   const rows = ["Reefer -> Booked", "Flatbed -> Negotiating", "Dry Van -> Loaded", "Power Only -> Clear"];
   return (
     <section className="platform" id="platform">
+      <div className="yard-overhead" aria-hidden="true">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <span key={index} style={{ "--i": index } as CSSProperties} />
+        ))}
+      </div>
       <div className="platform-copy">
         <p>Real-time trucking operations</p>
         <h2>Route coordination, load planning, and paperwork without the friction.</h2>
@@ -349,8 +420,7 @@ function TrustSection() {
 
 function FinalCta() {
   return (
-    <section className="final-cta" id="contact">
-      <div className="hero-image" />
+    <section className="final-cta terminal-footer" id="contact">
       <div className="cta-copy">
         <p>Let’s move your fleet forward</p>
         <h2>Dispatch engineered for profitability.</h2>
@@ -364,6 +434,29 @@ function FinalCta() {
           <a href="tel:+19133865580">Request Consultation</a>
         </div>
       </div>
+      <footer className="footer-grid">
+        <div>
+          <a className="footer-brand" href="#top"><span />Freight House</a>
+          <b>Overland Park, Kansas</b>
+        </div>
+        <div>
+          <p>Product</p>
+          <a href="#services">Dispatch assistance</a>
+          <a href="#platform">Revenue visibility</a>
+          <a href="#about">Carrier operations</a>
+        </div>
+        <div>
+          <p>Company</p>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div>
+          <p>Find us</p>
+          <a href="mailto:Freighthouse.KS@gmail.com">Freighthouse.KS@gmail.com</a>
+          <a href="tel:+19133865580">+1 (913) 386-5580</a>
+        </div>
+      </footer>
     </section>
   );
 }
@@ -380,7 +473,33 @@ export default function Home() {
     requestAnimationFrame(raf);
 
     const ctx = gsap.context(() => {
-      gsap.set("#truckRig", { xPercent: -58, yPercent: -50, left: "18%", top: "66%", scale: 0.92, rotate: 0 });
+      const mobile = window.innerWidth < 760;
+      const start = mobile
+        ? { left: "50%", top: "77%", scale: 0.94 }
+        : { left: "50%", top: "79%", scale: 0.96 };
+      const points = mobile
+        ? [
+            { left: "51%", top: "77%", scale: 0.94 },
+            { left: "52%", top: "77%", scale: 0.93 },
+            { left: "53%", top: "78%", scale: 0.92 },
+            { left: "54%", top: "78%", scale: 0.91 },
+            { left: "55%", top: "79%", scale: 0.9 },
+            { left: "56%", top: "79%", scale: 0.9 },
+          ]
+        : [
+            { left: "51%", top: "79%", scale: 0.96 },
+            { left: "52%", top: "78%", scale: 0.95 },
+            { left: "53.5%", top: "78%", scale: 0.94 },
+            { left: "55%", top: "79%", scale: 0.93 },
+            { left: "56.5%", top: "80%", scale: 0.92 },
+            { left: "58%", top: "80%", scale: 0.92 },
+          ];
+
+      gsap.set("#truckRig", { xPercent: -50, yPercent: -50, ...start, rotate: 0 });
+      gsap.set(["#skyNoon", "#skySunset", "#skyNight"], { opacity: 0 });
+      gsap.set(["#envTrees", "#envCoast", "#envCity", "#envSuburb", "#envOpen", "#envNight"], {
+        opacity: 0,
+      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -391,14 +510,29 @@ export default function Home() {
         },
       });
 
-      tl.to("#truckRig", { left: "52%", top: "67%", scale: 1.04, duration: 1.1, ease: "none" })
-        .to("#truckRig", { left: "78%", top: "58%", scale: 0.8, rotate: -2, duration: 1.1, ease: "none" })
-        .to("#truckRig", { left: "50%", top: "48%", scale: 0.46, rotate: 90, duration: 1, ease: "none" })
-        .to("#truckRig", { left: "15%", top: "48%", scale: 0.86, rotate: 0, duration: 1.1, ease: "none" })
-        .to("#truckRig", { left: "62%", top: "50%", scale: 0.72, rotate: 0, duration: 0.8, ease: "none" })
-        .to("#truckRig", { left: "52%", top: "36%", scale: 0.58, rotate: 0, duration: 0.75, ease: "none" })
-        .to("#truckRig", { left: "18%", top: "78%", scale: 0.48, rotate: 0, duration: 0.7, ease: "none" })
-        .to("#truckRig", { left: "72%", top: "70%", scale: 0.78, rotate: 0, duration: 1, ease: "none" });
+      tl.to("#truckRig", { ...points[0], duration: 1.1, ease: "none" }, 0)
+        .to("#envTrees", { opacity: 1, duration: 0.55, ease: "none" }, 0.18)
+        .to("#skyNoon", { opacity: 1, duration: 1.1, ease: "none" }, 0.45)
+        .to("#sunGlow", { left: "68%", top: "21%", scale: 1.26, duration: 1.25, ease: "none" }, 0.45)
+        .to("#truckRig", { ...points[1], duration: 1.1, ease: "none" }, 1.1)
+        .to("#envTrees", { opacity: 0, duration: 0.42, ease: "none" }, 1.05)
+        .to("#envCoast", { opacity: 1, duration: 0.55, ease: "none" }, 1.15)
+        .to("#truckRig", { ...points[2], duration: 1.1, ease: "none" }, 2.2)
+        .to("#envCoast", { opacity: 0, duration: 0.42, ease: "none" }, 2.05)
+        .to("#envCity", { opacity: 1, duration: 0.55, ease: "none" }, 2.15)
+        .to("#truckRig", { ...points[3], duration: 1.1, ease: "none" }, 3.3)
+        .to("#envCity", { opacity: 0, duration: 0.42, ease: "none" }, 3.05)
+        .to("#envSuburb", { opacity: 1, duration: 0.55, ease: "none" }, 3.15)
+        .to("#skySunset", { opacity: 1, duration: 1.1, ease: "none" }, 3.25)
+        .to("#truckRig", { ...points[4], duration: 1.1, ease: "none" }, 4.4)
+        .to("#envSuburb", { opacity: 0, duration: 0.42, ease: "none" }, 4.05)
+        .to("#envOpen", { opacity: 1, duration: 0.55, ease: "none" }, 4.15)
+        .to("#sunGlow", { left: "78%", top: "34%", opacity: 0.52, scale: 0.92, duration: 1.1, ease: "none" }, 4.35)
+        .to("#truckRig", { ...points[5], duration: 1.2, ease: "none" }, 5.5)
+        .to("#skyNight", { opacity: 1, duration: 1.1, ease: "none" }, 5.35)
+        .to("#envOpen", { opacity: 0, duration: 0.42, ease: "none" }, 5.45)
+        .to("#envNight", { opacity: 1, duration: 0.7, ease: "none" }, 5.55)
+        .to("#sunGlow", { opacity: 0.12, scale: 0.7, duration: 0.9, ease: "none" }, 5.65);
 
       ScrollTrigger.create({
         trigger: ".tech-section",
@@ -433,12 +567,13 @@ export default function Home() {
       <Nav />
       <JourneyRig />
       <Hero />
+      <EditorialSection />
+      <OperatingSystemSection />
       <StorySection />
       <TechSection />
-      <EditorialSection />
       <ServicesSection />
-      <NetworkSection />
       <PlatformSection />
+      <NetworkSection />
       <BenefitsSection />
       <TrustSection />
       <FinalCta />
