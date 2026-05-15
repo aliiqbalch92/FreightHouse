@@ -30,6 +30,8 @@ body {
   color: #f6f8f6;
   font-family: var(--font-inter), Arial, sans-serif;
   letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
 }
 
 a {
@@ -71,6 +73,7 @@ main {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .brand span {
@@ -98,6 +101,7 @@ main {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .journey-rig {
@@ -783,6 +787,7 @@ main {
   font-size: clamp(44px, 6.2vw, 92px);
   line-height: 0.92;
   letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .hero-copy h1 {
@@ -804,6 +809,7 @@ main {
   font-size: clamp(17px, 2vw, 22px);
   line-height: 1.45;
   text-shadow: 0 10px 32px rgba(0, 0, 0, 0.38);
+  overflow-wrap: anywhere;
 }
 
 .hero-meta {
@@ -1594,15 +1600,62 @@ main {
   }
 
   .truck-wrap {
-    width: 108vw;
+    width: 112vw;
   }
 
+  .editorial-layout,
   .service-grid,
   .platform,
   .benefits,
   .trust div,
-  .contact-grid {
+  .contact-grid,
+  .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .editorial,
+  .os-section,
+  .services,
+  .network-section,
+  .platform,
+  .trust,
+  .terminal-footer {
+    padding-inline: 24px;
+  }
+
+  .editorial-layout {
+    min-height: auto;
+    gap: 36px;
+  }
+
+  .editorial-visual::before {
+    min-height: 190px;
+  }
+
+  .yard-card {
+    align-items: flex-start;
+  }
+
+  .os-section {
+    min-height: 96vh;
+  }
+
+  .os-copy {
+    top: 18%;
+    width: calc(100% - 48px);
+  }
+
+  .os-letters {
+    gap: 12px;
+  }
+
+  .os-proof {
+    bottom: 42px;
+    width: calc(100% - 48px);
+  }
+
+  .service-card {
+    min-height: 230px;
   }
 
   .dashboard {
@@ -1616,22 +1669,77 @@ main {
   .benefit-panel {
     min-height: 420px;
   }
+
+  .footer-grid {
+    gap: 24px;
+  }
+
+  .footer-grid a,
+  .footer-grid b {
+    overflow-wrap: anywhere;
+  }
 }
 
 @media (max-width: 620px) {
   .hero,
   .final-cta {
-    padding: 112px 20px 64px;
+    min-height: 100svh;
+    padding: 96px 18px 54px;
   }
 
   .nav {
     top: 10px;
     width: calc(100vw - 20px);
-    padding-left: 12px;
+    height: 44px;
+    padding-left: 10px;
+  }
+
+  .brand {
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .brand span {
+    width: 14px;
+    height: 14px;
   }
 
   .nav-cta {
-    padding: 10px 12px;
+    padding: 9px 10px;
+    font-size: 9px;
+  }
+
+  .journey-rig::before {
+    background:
+      linear-gradient(90deg, rgba(3, 6, 6, 0.72), rgba(3, 6, 6, 0.22) 54%, transparent 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 34%, rgba(0, 0, 0, 0.58) 100%);
+  }
+
+  .road-layer {
+    bottom: -5vh;
+    height: 38vh;
+    transform: perspective(900px) rotateX(54deg);
+  }
+
+  .truck-wrap {
+    width: 118vw;
+  }
+
+  .hero-copy {
+    width: min(340px, 100%);
+    margin-top: clamp(28px, 8vh, 66px);
+  }
+
+  .hero-copy p,
+  .tech-copy p,
+  .network-copy p,
+  .platform-copy p,
+  .cta-copy p,
+  .section-kicker,
+  .editorial p {
+    margin-bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
   }
 
   .hero-copy h1,
@@ -1643,7 +1751,46 @@ main {
   .services h2,
   .editorial h2,
   .trust h2 {
-    font-size: clamp(42px, 15vw, 72px);
+    font-size: clamp(34px, 11.5vw, 54px);
+    line-height: 0.98;
+  }
+
+  .hero-subcopy,
+  .tech-copy span,
+  .network-copy span,
+  .platform-copy span {
+    max-width: 100%;
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.48;
+  }
+
+  .hero-meta,
+  .cta-actions {
+    gap: 8px;
+  }
+
+  .hero-meta a,
+  .cta-actions a {
+    min-height: 44px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+
+  .story-panel,
+  .tech-section,
+  .editorial,
+  .os-section,
+  .services,
+  .network-section,
+  .platform,
+  .trust,
+  .terminal-footer {
+    padding: 96px 18px;
+  }
+
+  .story-panel {
+    min-height: 88vh;
   }
 
   .story-panel span,
@@ -1651,11 +1798,169 @@ main {
     display: none;
   }
 
+  .editorial-visual::before {
+    min-height: 150px;
+  }
+
+  .yard-card {
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    font-size: 11px;
+  }
+
+  .os-section {
+    min-height: 88vh;
+  }
+
+  .os-copy {
+    top: 14%;
+  }
+
+  .os-copy h2 {
+    font-size: 17px;
+  }
+
+  .os-letters {
+    font-size: clamp(48px, 19vw, 72px);
+  }
+
+  .os-proof {
+    bottom: 28px;
+    gap: 8px;
+  }
+
+  .os-proof span {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .service-grid,
+  .trust div {
+    margin-top: 36px;
+  }
+
+  .service-card {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .service-card h3 {
+    margin: 42px 0 12px;
+    font-size: 21px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+  }
+
+  .dashboard {
+    border-radius: 0;
+  }
+
+  .dash-top {
+    gap: 12px;
+    padding: 16px;
+    font-size: 12px;
+  }
+
+  .metric {
+    min-height: 120px;
+    padding: 18px;
+  }
+
+  .lane-list {
+    padding: 14px;
+  }
+
   .lane-list div {
-    grid-template-columns: 20px 92px 1fr;
+    grid-template-columns: 18px minmax(0, 1fr) 52px;
+    gap: 10px;
+    min-height: 50px;
+    font-size: 12px;
   }
 
   .lane-list b {
     display: none;
+  }
+
+  .benefits {
+    min-height: auto;
+  }
+
+  .benefit-panel {
+    min-height: 360px;
+    padding: 24px;
+  }
+
+  .benefit-panel h3 {
+    font-size: clamp(26px, 8vw, 36px);
+  }
+
+  .trust span {
+    min-height: 84px;
+    font-size: 13px;
+  }
+
+  .contact-grid span {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .contact-grid b {
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-footer {
+    gap: 56px;
+    padding-top: 116px;
+    padding-bottom: 36px;
+  }
+
+  .footer-grid {
+    gap: 22px;
+  }
+
+  .environment-layer {
+    opacity: 0;
+  }
+
+  .warehouse-row,
+  .city-line,
+  .home-line,
+  .palm-line,
+  .mountain-range,
+  .terminal-warehouse {
+    bottom: 34vh;
+  }
+
+  .container-stack,
+  .dock-row,
+  .parked-trucks,
+  .terminal-containers {
+    transform: scale(0.78);
+    transform-origin: center bottom;
+  }
+}
+
+@media (max-width: 390px) {
+  .brand {
+    max-width: 148px;
+  }
+
+  .nav-cta {
+    padding-inline: 8px;
+  }
+
+  .hero-copy h1,
+  .cta-copy h2,
+  .story-panel h2,
+  .tech-copy h2,
+  .network-copy h2,
+  .platform-copy h2,
+  .services h2,
+  .editorial h2,
+  .trust h2 {
+    font-size: clamp(31px, 10.8vw, 46px);
   }
 }
