@@ -59,7 +59,12 @@ const operations = [
   ["Support", "24/7"],
 ];
 
-const proofPoints = ["24/7 support", "Top-paying freight", "Minimal downtime", "Reliable dispatching"];
+const proofPoints = [
+  ["24/7 Support", "Dispatch coverage while your trucks keep moving."],
+  ["Top-Paying Freight", "Rate-focused load selection built around carrier margin."],
+  ["Minimal Downtime", "Continuous planning to reduce idle hours between loads."],
+  ["Reliable Dispatching", "Consistent coordination across brokers, routes, and paperwork."],
+];
 
 function TruckIllustration() {
   return (
@@ -316,7 +321,7 @@ function OperatingSystemSection() {
       <div className="os-grid" />
       <div className="os-copy">
         <p>Freight House operating layer</p>
-        <h2>Dispatching beyond expectations.</h2>
+        <h2>Performance signals for profitable movement.</h2>
       </div>
       <div className="os-letters" aria-hidden="true">
         <span>F</span>
@@ -325,8 +330,11 @@ function OperatingSystemSection() {
         <span>S</span>
       </div>
       <div className="os-proof">
-        {proofPoints.map((point) => (
-          <span key={point}>{point}</span>
+        {proofPoints.map(([title, copy]) => (
+          <article key={title}>
+            <b>{title}</b>
+            <span>{copy}</span>
+          </article>
         ))}
       </div>
     </section>
@@ -518,11 +526,13 @@ export default function Home() {
 
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.18, smoothWheel: true, lerp: 0.08 });
+    let rafId = 0;
     const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     };
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
 
     const ctx = gsap.context(() => {
       const mobile = window.innerWidth < 760;
@@ -616,13 +626,17 @@ export default function Home() {
       ScrollTrigger.create({
         trigger: ".services",
         start: "top 50%",
-        end: ".trust bottom",
+        endTrigger: ".trust",
+        end: "bottom bottom",
         toggleClass: { targets: ".journey-rig", className: "is-receded" },
       });
+
+      ScrollTrigger.refresh();
     }, rootRef);
 
     return () => {
       ctx.revert();
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);
