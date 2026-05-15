@@ -21,6 +21,7 @@
 html {
   scroll-behavior: auto;
   background: var(--black);
+  overflow-x: hidden;
 }
 
 body {
@@ -677,8 +678,8 @@ main {
 .truck-wrap {
   position: absolute;
   z-index: 10;
-  width: min(92vw, 1400px);
-  bottom: -19vh;
+  width: clamp(760px, 86vw, 1320px);
+  bottom: -17vh;
   left: 50%;
   will-change: transform, left, bottom;
   filter: drop-shadow(0 34px 46px rgba(0, 0, 0, 0.52));
@@ -703,8 +704,29 @@ main {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
+  transform: translateY(15%);
   user-select: none;
 }
+
+.truck-wheel {
+  position: absolute;
+  z-index: 3;
+  width: 4.7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(210, 205, 192, 0.78) 0 18%, rgba(42, 39, 35, 0.92) 19% 42%, transparent 43%),
+    conic-gradient(from 0deg, rgba(255, 244, 220, 0.32), rgba(16, 15, 14, 0.1), rgba(255, 244, 220, 0.32), rgba(16, 15, 14, 0.1), rgba(255, 244, 220, 0.32));
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.62), 0 5px 12px rgba(0, 0, 0, 0.38);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.truck-wheel-a { left: 12.3%; top: 72.8%; }
+.truck-wheel-b { left: 51.5%; top: 72.8%; }
+.truck-wheel-c { left: 60.6%; top: 72.8%; }
+.truck-wheel-d { left: 91%; top: 72.8%; }
 
 .is-light {
   mix-blend-mode: normal;
@@ -1053,41 +1075,51 @@ main {
   text-align: left;
 }
 
-.editorial-visual {
+.operations-panel {
   position: relative;
   z-index: 22;
   display: grid;
-  gap: 1px;
-  overflow: hidden;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
   border: 1px solid rgba(255, 247, 231, 0.14);
-  border-radius: 22px 0 22px 0;
+  padding: 12px;
   background:
     linear-gradient(135deg, rgba(183, 255, 53, 0.1), transparent 38%),
     rgba(255, 247, 231, 0.06);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
 }
 
-.editorial-visual::before {
-  content: "";
-  min-height: 260px;
-  background:
-    linear-gradient(rgba(255, 247, 231, 0.12), rgba(255, 247, 231, 0.02)),
-    repeating-linear-gradient(90deg, transparent 0 58px, rgba(255, 247, 231, 0.12) 59px 60px),
-    repeating-linear-gradient(0deg, transparent 0 46px, rgba(255, 247, 231, 0.08) 47px 48px);
-}
-
-.yard-card {
+.operation-card {
   display: flex;
+  min-height: 142px;
+  flex-direction: column;
   justify-content: space-between;
   gap: 18px;
-  padding: 22px;
-  background: rgba(255, 247, 231, 0.07);
+  border: 1px solid rgba(255, 247, 231, 0.12);
+  padding: 20px;
+  background:
+    radial-gradient(circle at 78% 0%, rgba(183, 255, 53, 0.08), transparent 42%),
+    rgba(5, 6, 7, 0.42);
   color: rgba(214, 208, 199, 0.78);
-  font-size: 13px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.operation-card span {
+  max-width: 150px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
-.yard-card b {
+.operation-card b {
   color: #dfffb0;
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(22px, 2.5vw, 34px);
+  line-height: 0.95;
+  text-transform: uppercase;
 }
 
 .os-section {
@@ -1436,21 +1468,102 @@ main {
   position: relative;
   z-index: 22;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
   margin-top: 64px;
-  background: rgba(255, 247, 231, 0.12);
-  border: 1px solid rgba(255, 247, 231, 0.14);
 }
 
-.trust span {
-  display: grid;
-  min-height: 120px;
-  place-items: center;
+.equipment-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 330px;
+  border: 1px solid rgba(255, 247, 231, 0.14);
+  padding: 20px;
   background: rgba(255, 247, 231, 0.065);
   color: rgba(214, 208, 199, 0.7);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
+}
+
+.equipment-visual {
+  position: relative;
+  height: 150px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 247, 231, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 247, 231, 0.08), transparent 55%),
+    radial-gradient(circle at 72% 28%, rgba(255, 192, 101, 0.18), transparent 26%),
+    rgba(5, 6, 7, 0.34);
+}
+
+.equipment-visual::before {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 22%;
+  height: 38%;
+  content: "";
+  border: 1px solid rgba(255, 247, 231, 0.42);
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 247, 231, 0.18) 0 1px, transparent 1px 24px),
+    linear-gradient(90deg, rgba(214, 208, 199, 0.2), rgba(214, 208, 199, 0.06));
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.32);
+}
+
+.equipment-visual::after {
+  position: absolute;
+  left: 13%;
+  right: 14%;
+  bottom: 14%;
+  height: 18px;
+  content: "";
+  background:
+    radial-gradient(circle at 10% 50%, #050607 0 9px, transparent 10px),
+    radial-gradient(circle at 68% 50%, #050607 0 9px, transparent 10px),
+    radial-gradient(circle at 82% 50%, #050607 0 9px, transparent 10px);
+}
+
+.equipment-visual span {
+  position: absolute;
+  right: 8%;
+  bottom: 22%;
+  width: 18%;
+  height: 42%;
+  border: 1px solid rgba(255, 247, 231, 0.46);
+  border-radius: 2px 18px 2px 2px;
+  background: linear-gradient(135deg, rgba(245, 242, 234, 0.38), rgba(245, 242, 234, 0.08));
+}
+
+.equipment-visual[data-equipment="Flatbed"]::before,
+.equipment-visual[data-equipment="Step Deck"]::before {
+  height: 14%;
+  bottom: 30%;
+  background: linear-gradient(90deg, rgba(159, 117, 72, 0.58), rgba(214, 208, 199, 0.12));
+}
+
+.equipment-visual[data-equipment="Step Deck"]::before {
+  clip-path: polygon(0 34%, 42% 34%, 42% 0, 100% 0, 100% 100%, 0 100%);
+  height: 28%;
+}
+
+.equipment-visual[data-equipment="Box Truck"]::before {
+  left: 22%;
+  right: 24%;
+}
+
+.equipment-card h3 {
+  margin: 0 0 10px;
   font-family: var(--font-space), sans-serif;
+  color: #f5f2ea;
+  font-size: 25px;
   font-weight: 700;
+}
+
+.equipment-card p {
+  margin: 0;
+  color: rgba(214, 208, 199, 0.72);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .contact-grid {
@@ -1632,12 +1745,8 @@ main {
     gap: 36px;
   }
 
-  .editorial-visual::before {
-    min-height: 190px;
-  }
-
-  .yard-card {
-    align-items: flex-start;
+  .operations-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .os-section {
@@ -1726,9 +1835,17 @@ main {
   }
 
   .truck-wrap {
-    width: 124vw;
+    width: clamp(460px, 118vw, 620px);
     left: 50%;
-    bottom: 4px;
+    bottom: 15vh;
+  }
+
+  .truck-image {
+    transform: translateY(18%);
+  }
+
+  .truck-wheel {
+    width: 4.8%;
   }
 
   .hero-copy {
@@ -1804,15 +1921,22 @@ main {
     display: none;
   }
 
-  .editorial-visual::before {
-    min-height: 150px;
+  .operations-panel {
+    gap: 8px;
+    padding: 8px;
   }
 
-  .yard-card {
-    flex-direction: column;
-    gap: 6px;
-    padding: 16px;
-    font-size: 11px;
+  .operation-card {
+    min-height: 112px;
+    padding: 14px;
+  }
+
+  .operation-card span {
+    font-size: 9px;
+  }
+
+  .operation-card b {
+    font-size: 20px;
   }
 
   .os-section {
@@ -1908,6 +2032,16 @@ main {
     font-size: 13px;
   }
 
+  .equipment-card {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .equipment-visual {
+    height: 132px;
+    margin-bottom: 18px;
+  }
+
   .contact-grid span {
     min-height: auto;
     padding: 16px;
@@ -1956,9 +2090,9 @@ main {
   }
 
   .truck-wrap {
-    width: 134vw;
+    width: min(128vw, 580px);
     left: 50%;
-    bottom: 6px;
+    bottom: 15vh;
   }
 }
 
@@ -1972,9 +2106,9 @@ main {
   }
 
   .truck-wrap {
-    width: 142vw;
-    left: 51%;
-    bottom: 8px;
+    width: min(126vw, 540px);
+    left: 50%;
+    bottom: 15.5vh;
   }
 
   .hero-copy h1,

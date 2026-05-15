@@ -41,19 +41,41 @@ const benefits = [
   ["Flexible pricing", "Flat-rate and percentage-based dispatch options tailored to carrier preferences."],
 ];
 
-const equipment = ["Reefer", "Flatbed", "Step Deck", "Dry Van", "Power Only", "Box Truck"];
+const equipment = [
+  ["Reefer", "Temperature-controlled freight dispatch for refrigerated loads."],
+  ["Flatbed", "Reliable dispatching for open-deck and heavy-haul freight."],
+  ["Step Deck", "Specialized support for taller and oversized loads."],
+  ["Power Only", "Dispatch support for carriers moving trailers without owned equipment."],
+  ["Dry Van", "Consistent freight opportunities for enclosed trailer operations."],
+  ["Box Truck", "Local and regional dispatch support for box truck carriers."],
+];
+
+const operations = [
+  ["Load Board Searches", "Eliminated"],
+  ["Broker Negotiation", "Handled"],
+  ["Fleet Movement", "Continuous"],
+  ["Paperwork", "Managed"],
+  ["Revenue Reports", "Weekly"],
+  ["Support", "24/7"],
+];
 
 const proofPoints = ["24/7 support", "Top-paying freight", "Minimal downtime", "Reliable dispatching"];
 
 function TruckIllustration() {
   return (
-    <img
-      className="truck-image"
-      src="/assets/freight-house-truck-optimized.png"
-      alt=""
-      aria-hidden="true"
-      draggable={false}
-    />
+    <>
+      <img
+        className="truck-image"
+        src="/assets/freight-house-truck-optimized.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+      />
+      <span className="truck-wheel truck-wheel-a" />
+      <span className="truck-wheel truck-wheel-b" />
+      <span className="truck-wheel truck-wheel-c" />
+      <span className="truck-wheel truck-wheel-d" />
+    </>
   );
 }
 
@@ -273,24 +295,15 @@ function EditorialSection() {
       <div className="editorial-layout">
         <div className="editorial-copy">
           <p>Built around carrier success.</p>
-          <h2>
-            Imagine dispatch as an <em>intelligent bridge</em> connecting every load,
-            route, broker, and truck.
-          </h2>
+          <h2>Dispatch operations engineered for <em>profit</em>.</h2>
         </div>
-        <div className="editorial-visual">
-          <div className="yard-card">
-            <span>Load board searches</span>
-            <b>Eliminated</b>
-          </div>
-          <div className="yard-card">
-            <span>Broker negotiation</span>
-            <b>Handled</b>
-          </div>
-          <div className="yard-card">
-            <span>Fleet movement</span>
-            <b>Continuous</b>
-          </div>
+        <div className="operations-panel">
+          {operations.map(([label, status]) => (
+            <div className="operation-card" key={label}>
+              <span>{label}</span>
+              <b>{status}</b>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -443,8 +456,14 @@ function TrustSection() {
       <p className="section-kicker">Equipment we dispatch</p>
       <h2>Built for the equipment carriers run every day.</h2>
       <div>
-        {equipment.map((item) => (
-          <span key={item}>{item}</span>
+        {equipment.map(([name, description]) => (
+          <article className="equipment-card" key={name}>
+            <div className="equipment-visual" data-equipment={name}>
+              <span />
+            </div>
+            <h3>{name}</h3>
+            <p>{description}</p>
+          </article>
         ))}
       </div>
     </section>
@@ -508,27 +527,28 @@ export default function Home() {
     const ctx = gsap.context(() => {
       const mobile = window.innerWidth < 760;
       const start = mobile
-        ? { left: "50%", bottom: "4px", scale: 0.94 }
-        : { left: "50%", bottom: "-19vh", scale: 0.96 };
+        ? { left: "50%", bottom: "15vh", scale: 0.94 }
+        : { left: "50%", bottom: "-17vh", scale: 0.96 };
       const points = mobile
         ? [
-            { left: "50.5%", bottom: "4px", scale: 0.94 },
-            { left: "51%", bottom: "6px", scale: 0.93 },
-            { left: "51.5%", bottom: "7px", scale: 0.92 },
-            { left: "52%", bottom: "6px", scale: 0.91 },
-            { left: "52.5%", bottom: "4px", scale: 0.9 },
-            { left: "53%", bottom: "3px", scale: 0.9 },
+            { left: "50.5%", bottom: "15vh", scale: 0.94 },
+            { left: "51%", bottom: "15.2vh", scale: 0.93 },
+            { left: "51.5%", bottom: "15.4vh", scale: 0.92 },
+            { left: "52%", bottom: "15.2vh", scale: 0.91 },
+            { left: "52.5%", bottom: "15vh", scale: 0.9 },
+            { left: "53%", bottom: "14.8vh", scale: 0.9 },
           ]
         : [
-            { left: "50.5%", bottom: "-19vh", scale: 0.96 },
-            { left: "51%", bottom: "-18vh", scale: 0.95 },
-            { left: "51.5%", bottom: "-18vh", scale: 0.94 },
-            { left: "52%", bottom: "-19vh", scale: 0.93 },
-            { left: "52.5%", bottom: "-20vh", scale: 0.92 },
-            { left: "53%", bottom: "-20vh", scale: 0.92 },
+            { left: "50.5%", bottom: "-17vh", scale: 0.96 },
+            { left: "51%", bottom: "-16.5vh", scale: 0.95 },
+            { left: "51.5%", bottom: "-16.5vh", scale: 0.94 },
+            { left: "52%", bottom: "-17vh", scale: 0.93 },
+            { left: "52.5%", bottom: "-17.5vh", scale: 0.92 },
+            { left: "53%", bottom: "-17.5vh", scale: 0.92 },
           ];
 
       gsap.set("#truckRig", { xPercent: -50, yPercent: 0, top: "auto", ...start, rotate: 0 });
+      let wheelRotation = 0;
       gsap.set(["#skyNoon", "#skySunset", "#skyNight"], { opacity: 0 });
       gsap.set(
         ["#envTrees", "#envIndustrial", "#envCity", "#envSuburb", "#envCoast", "#envMountain", "#envTerminal"],
@@ -541,6 +561,14 @@ export default function Home() {
           start: "top top",
           end: "bottom bottom",
           scrub: 1.1,
+          onUpdate: (self) => {
+            const velocity = Math.abs(self.getVelocity());
+            wheelRotation += self.direction * Math.min(velocity / 18, 28);
+            gsap.set(".truck-wheel", {
+              rotation: wheelRotation,
+              transformOrigin: "50% 50%",
+            });
+          },
         },
       });
 
@@ -568,7 +596,7 @@ export default function Home() {
         .to("#skyNight", { opacity: 1, duration: 1.1, ease: "none" }, 5.35)
         .to("#envMountain", { opacity: 0, duration: 0.42, ease: "none" }, 5.45)
         .to("#envTerminal", { opacity: 1, duration: 0.7, ease: "none" }, 5.55)
-        .to("#truckRig", { left: mobile ? "52%" : "51.5%", bottom: mobile ? "8px" : "-20vh", scale: mobile ? 0.86 : 0.88, duration: 0.85, ease: "none" }, 6.25)
+        .to("#truckRig", { left: mobile ? "52%" : "51.5%", bottom: mobile ? "15.5vh" : "-17.5vh", scale: mobile ? 0.86 : 0.88, duration: 0.85, ease: "none" }, 6.25)
         .to("#sunGlow", { opacity: 0.12, scale: 0.7, duration: 0.9, ease: "none" }, 5.65);
 
       ScrollTrigger.create({
