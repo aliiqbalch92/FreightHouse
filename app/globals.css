@@ -678,7 +678,9 @@ main {
   position: absolute;
   z-index: 10;
   width: min(92vw, 1400px);
-  will-change: transform, left, top;
+  bottom: -19vh;
+  left: 50%;
+  will-change: transform, left, bottom;
   filter: drop-shadow(0 34px 46px rgba(0, 0, 0, 0.52));
 }
 
@@ -1601,6 +1603,8 @@ main {
 
   .truck-wrap {
     width: 112vw;
+    bottom: 4px;
+    left: 50%;
   }
 
   .editorial-layout,
@@ -1716,13 +1720,15 @@ main {
   }
 
   .road-layer {
-    bottom: -5vh;
+    bottom: 0;
     height: 38vh;
     transform: perspective(900px) rotateX(54deg);
   }
 
   .truck-wrap {
-    width: 118vw;
+    width: 124vw;
+    left: 50%;
+    bottom: 4px;
   }
 
   .hero-copy {
@@ -1943,6 +1949,19 @@ main {
   }
 }
 
+@media (max-width: 480px) {
+  .road-layer {
+    height: 36vh;
+    bottom: 0;
+  }
+
+  .truck-wrap {
+    width: 134vw;
+    left: 50%;
+    bottom: 6px;
+  }
+}
+
 @media (max-width: 390px) {
   .brand {
     max-width: 148px;
@@ -1950,6 +1969,12 @@ main {
 
   .nav-cta {
     padding-inline: 8px;
+  }
+
+  .truck-wrap {
+    width: 142vw;
+    left: 51%;
+    bottom: 8px;
   }
 
   .hero-copy h1,

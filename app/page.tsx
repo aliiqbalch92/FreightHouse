@@ -508,27 +508,27 @@ export default function Home() {
     const ctx = gsap.context(() => {
       const mobile = window.innerWidth < 760;
       const start = mobile
-        ? { left: "50%", top: "77%", scale: 0.94 }
-        : { left: "50%", top: "79%", scale: 0.96 };
+        ? { left: "50%", bottom: "4px", scale: 0.94 }
+        : { left: "50%", bottom: "-19vh", scale: 0.96 };
       const points = mobile
         ? [
-            { left: "51%", top: "77%", scale: 0.94 },
-            { left: "52%", top: "77%", scale: 0.93 },
-            { left: "53%", top: "78%", scale: 0.92 },
-            { left: "54%", top: "78%", scale: 0.91 },
-            { left: "55%", top: "79%", scale: 0.9 },
-            { left: "56%", top: "79%", scale: 0.9 },
+            { left: "50.5%", bottom: "4px", scale: 0.94 },
+            { left: "51%", bottom: "6px", scale: 0.93 },
+            { left: "51.5%", bottom: "7px", scale: 0.92 },
+            { left: "52%", bottom: "6px", scale: 0.91 },
+            { left: "52.5%", bottom: "4px", scale: 0.9 },
+            { left: "53%", bottom: "3px", scale: 0.9 },
           ]
         : [
-            { left: "51%", top: "79%", scale: 0.96 },
-            { left: "52%", top: "78%", scale: 0.95 },
-            { left: "53.5%", top: "78%", scale: 0.94 },
-            { left: "55%", top: "79%", scale: 0.93 },
-            { left: "56.5%", top: "80%", scale: 0.92 },
-            { left: "58%", top: "80%", scale: 0.92 },
+            { left: "50.5%", bottom: "-19vh", scale: 0.96 },
+            { left: "51%", bottom: "-18vh", scale: 0.95 },
+            { left: "51.5%", bottom: "-18vh", scale: 0.94 },
+            { left: "52%", bottom: "-19vh", scale: 0.93 },
+            { left: "52.5%", bottom: "-20vh", scale: 0.92 },
+            { left: "53%", bottom: "-20vh", scale: 0.92 },
           ];
 
-      gsap.set("#truckRig", { xPercent: -50, yPercent: -50, ...start, rotate: 0 });
+      gsap.set("#truckRig", { xPercent: -50, yPercent: 0, top: "auto", ...start, rotate: 0 });
       gsap.set(["#skyNoon", "#skySunset", "#skyNight"], { opacity: 0 });
       gsap.set(
         ["#envTrees", "#envIndustrial", "#envCity", "#envSuburb", "#envCoast", "#envMountain", "#envTerminal"],
@@ -568,7 +568,7 @@ export default function Home() {
         .to("#skyNight", { opacity: 1, duration: 1.1, ease: "none" }, 5.35)
         .to("#envMountain", { opacity: 0, duration: 0.42, ease: "none" }, 5.45)
         .to("#envTerminal", { opacity: 1, duration: 0.7, ease: "none" }, 5.55)
-        .to("#truckRig", { left: mobile ? "53%" : "54%", top: mobile ? "79%" : "80%", scale: mobile ? 0.86 : 0.88, duration: 0.85, ease: "none" }, 6.25)
+        .to("#truckRig", { left: mobile ? "52%" : "51.5%", bottom: mobile ? "8px" : "-20vh", scale: mobile ? 0.86 : 0.88, duration: 0.85, ease: "none" }, 6.25)
         .to("#sunGlow", { opacity: 0.12, scale: 0.7, duration: 0.9, ease: "none" }, 5.65);
 
       ScrollTrigger.create({
