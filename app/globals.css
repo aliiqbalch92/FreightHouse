@@ -94,7 +94,7 @@ main {
   border-radius: 4px;
   padding: 10px 13px;
   background: #b7ff35;
-  color: #07100d;
+  color: #263416;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -193,7 +193,10 @@ main {
 .palm-line,
 .city-line,
 .home-line,
-.lamp-line {
+.lamp-line,
+.container-stack,
+.dock-row,
+.parked-trucks {
   position: absolute;
   left: -18vw;
   right: -18vw;
@@ -226,6 +229,112 @@ main {
     linear-gradient(90deg, transparent 46%, rgba(63, 44, 28, 0.72) 47% 54%, transparent 55%);
   filter: blur(0.2px);
   opacity: 0.82;
+}
+
+.env-industrial {
+  background:
+    radial-gradient(circle at 70% 36%, rgba(255, 192, 101, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(90, 99, 99, 0.18), rgba(18, 19, 17, 0.46) 66%, rgba(5, 6, 7, 0.72));
+}
+
+.warehouse-row {
+  position: absolute;
+  left: -8vw;
+  right: -10vw;
+  bottom: 38vh;
+  height: 26vh;
+  animation: envDrift 28s linear infinite;
+}
+
+.warehouse-main,
+.warehouse-annex,
+.warehouse-lights {
+  position: absolute;
+  bottom: 0;
+  display: block;
+}
+
+.warehouse-main {
+  left: 5%;
+  width: 58vw;
+  height: 24vh;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 74px),
+    linear-gradient(180deg, rgba(185, 180, 166, 0.42), rgba(42, 45, 42, 0.86));
+  border-top: 2px solid rgba(255, 244, 215, 0.46);
+  box-shadow: inset 0 -60px 90px rgba(0, 0, 0, 0.34), 0 32px 100px rgba(0, 0, 0, 0.34);
+}
+
+.warehouse-annex {
+  left: 62%;
+  width: 28vw;
+  height: 18vh;
+  background:
+    linear-gradient(90deg, rgba(40, 43, 42, 0.9), rgba(78, 81, 76, 0.74)),
+    repeating-linear-gradient(0deg, transparent 0 24px, rgba(255, 255, 255, 0.14) 25px 26px);
+  border-top: 1px solid rgba(255, 244, 215, 0.38);
+}
+
+.warehouse-lights {
+  left: 9%;
+  right: 14%;
+  top: 14%;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, rgba(255, 230, 164, 0.98) 0 34px, transparent 34px 130px);
+  filter: drop-shadow(0 0 12px rgba(255, 204, 118, 0.82));
+}
+
+.container-stack {
+  bottom: 36vh;
+  height: 18vh;
+  animation-duration: 18s;
+}
+
+.container-stack span {
+  position: absolute;
+  left: calc(38% + var(--i) * 5.2%);
+  bottom: 0;
+  width: clamp(72px, 8vw, 142px);
+  height: 34px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 18px),
+    linear-gradient(90deg, rgba(143, 63, 43, 0.9), rgba(207, 125, 62, 0.84));
+  border: 1px solid rgba(255, 230, 190, 0.18);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
+}
+
+.container-stack span:nth-child(3n + 2) { bottom: 38px; }
+.container-stack span:nth-child(3n) { bottom: 76px; }
+
+.container-stack span:nth-child(2n) {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0 2px, transparent 2px 18px),
+    linear-gradient(90deg, rgba(35, 75, 78, 0.9), rgba(59, 108, 112, 0.82));
+}
+
+.container-stack span:nth-child(3n) {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 18px),
+    linear-gradient(90deg, rgba(72, 78, 83, 0.95), rgba(127, 133, 132, 0.82));
+}
+
+.dock-row {
+  bottom: 36vh;
+  height: 16vh;
+  animation-duration: 20s;
+}
+
+.dock-row span {
+  position: absolute;
+  left: calc(8% + var(--i) * 8%);
+  bottom: 0;
+  width: clamp(54px, 6vw, 96px);
+  height: clamp(54px, 8vh, 86px);
+  background:
+    linear-gradient(180deg, rgba(255, 235, 190, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(29, 33, 32, 0.9), rgba(8, 10, 10, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.04);
 }
 
 .env-coast .ocean-strip {
@@ -305,17 +414,31 @@ main {
   opacity: 0.76;
 }
 
-.hill-line {
+.mountain-range {
   position: absolute;
   left: -12vw;
   right: -12vw;
-  bottom: 36vh;
-  height: 22vh;
+  bottom: 34vh;
+  height: 34vh;
   background:
-    radial-gradient(ellipse at 12% 100%, rgba(47, 86, 64, 0.5) 0 28%, transparent 29%),
+    linear-gradient(135deg, transparent 0 20%, rgba(83, 82, 68, 0.56) 20.4% 33%, transparent 33.5%),
+    linear-gradient(45deg, transparent 0 22%, rgba(69, 83, 76, 0.66) 22.4% 38%, transparent 38.5%),
+    radial-gradient(ellipse at 12% 100%, rgba(47, 86, 64, 0.45) 0 28%, transparent 29%),
     radial-gradient(ellipse at 42% 100%, rgba(74, 86, 62, 0.5) 0 34%, transparent 35%),
-    radial-gradient(ellipse at 76% 100%, rgba(56, 83, 72, 0.46) 0 31%, transparent 32%);
-  animation: envDrift 28s linear infinite;
+    radial-gradient(ellipse at 76% 100%, rgba(56, 83, 72, 0.5) 0 31%, transparent 32%);
+  animation: envDrift 32s linear infinite;
+}
+
+.pine-line {
+  position: absolute;
+  left: -12vw;
+  right: -12vw;
+  bottom: 35vh;
+  height: 14vh;
+  background:
+    repeating-linear-gradient(115deg, transparent 0 40px, rgba(25, 64, 45, 0.68) 41px 58px, transparent 59px 94px);
+  opacity: 0.78;
+  animation: envDrift 18s linear infinite;
 }
 
 .road-sign {
@@ -348,18 +471,89 @@ main {
 .sign-one { left: 105%; }
 .sign-two { left: 138%; animation-delay: -4s; }
 
-.night-city {
+.terminal-warehouse {
   position: absolute;
-  left: -10vw;
-  right: -10vw;
-  bottom: 38vh;
-  height: 24vh;
+  left: -4vw;
+  right: -4vw;
+  bottom: 34vh;
+  height: 34vh;
   background:
-    repeating-linear-gradient(90deg, rgba(255, 224, 136, 0.22) 0 3px, transparent 3px 38px),
-    linear-gradient(180deg, rgba(17, 29, 41, 0.9), rgba(3, 6, 9, 0.88));
-  mask-image: linear-gradient(90deg, transparent, #000 10% 90%, transparent);
-  opacity: 0.8;
-  animation: envDrift 30s linear infinite;
+    radial-gradient(circle at 72% 18%, rgba(255, 206, 116, 0.24), transparent 16%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 92px),
+    linear-gradient(180deg, rgba(55, 58, 56, 0.96), rgba(12, 14, 14, 0.98));
+  border-top: 1px solid rgba(255, 239, 205, 0.26);
+  box-shadow: inset 0 -70px 100px rgba(0, 0, 0, 0.5), 0 -28px 96px rgba(255, 190, 88, 0.12);
+}
+
+.terminal-warehouse::before {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  height: 48%;
+  content: "";
+  background: repeating-linear-gradient(90deg, rgba(6, 8, 8, 0.92) 0 9%, rgba(36, 39, 38, 0.92) 9% 10%, transparent 10% 12.5%);
+}
+
+.terminal-containers {
+  position: absolute;
+  right: 4vw;
+  bottom: 35vh;
+  width: 28vw;
+  height: 13vh;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(168, 75, 46, 0.88) 0 86px, rgba(45, 86, 90, 0.9) 86px 172px, rgba(116, 120, 116, 0.86) 172px 258px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0.86;
+}
+
+.dock-numbers {
+  position: absolute;
+  left: 7%;
+  right: 8%;
+  bottom: 50%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1.4vw;
+}
+
+.dock-numbers span {
+  color: rgba(255, 245, 220, 0.72);
+  font-size: clamp(10px, 1vw, 14px);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-shadow: 0 0 16px rgba(255, 205, 124, 0.72);
+}
+
+.parked-trucks {
+  bottom: 34vh;
+  height: 16vh;
+  animation-duration: 26s;
+}
+
+.parked-trucks span {
+  position: absolute;
+  left: calc(10% + var(--i) * 13%);
+  bottom: 0;
+  width: clamp(92px, 11vw, 180px);
+  height: clamp(36px, 5vh, 58px);
+  background:
+    linear-gradient(90deg, rgba(210, 204, 188, 0.9) 0 28%, rgba(58, 61, 60, 0.95) 28% 100%);
+  border-radius: 3px 13px 3px 3px;
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.36);
+  opacity: 0.72;
+}
+
+.parked-trucks span::after {
+  position: absolute;
+  left: 14%;
+  right: 10%;
+  bottom: -8px;
+  height: 11px;
+  content: "";
+  background: radial-gradient(circle at 14% 50%, #080908 0 5px, transparent 6px), radial-gradient(circle at 82% 50%, #080908 0 5px, transparent 6px);
 }
 
 .lamp-line {
@@ -632,7 +826,7 @@ main {
 .hero-meta a:first-child {
   border-color: rgba(183, 255, 53, 0.62);
   background: #b7ff35;
-  color: #07100d;
+  color: #263416;
   font-weight: 800;
 }
 
@@ -817,11 +1011,12 @@ main {
   display: block;
   padding: 130px clamp(22px, 7vw, 110px);
   background:
-    linear-gradient(rgba(8, 13, 12, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8, 13, 12, 0.06) 1px, transparent 1px),
-    rgba(251, 250, 245, 0.9);
+    radial-gradient(circle at 74% 22%, rgba(255, 187, 88, 0.18), transparent 28%),
+    linear-gradient(rgba(255, 247, 231, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 247, 231, 0.055) 1px, transparent 1px),
+    rgba(9, 12, 12, 0.84);
   background-size: 44px 44px;
-  color: #0a0d0e;
+  color: #f5f2ea;
 }
 
 .editorial-layout {
@@ -846,7 +1041,7 @@ main {
 }
 
 .editorial p {
-  color: rgba(8, 13, 12, 0.48);
+  color: rgba(214, 208, 199, 0.74);
   text-align: left;
 }
 
@@ -856,20 +1051,20 @@ main {
   display: grid;
   gap: 1px;
   overflow: hidden;
-  border: 1px solid rgba(8, 13, 12, 0.12);
+  border: 1px solid rgba(255, 247, 231, 0.14);
   border-radius: 22px 0 22px 0;
   background:
-    linear-gradient(135deg, rgba(183, 255, 53, 0.12), transparent 38%),
-    rgba(8, 13, 12, 0.1);
+    linear-gradient(135deg, rgba(183, 255, 53, 0.1), transparent 38%),
+    rgba(255, 247, 231, 0.06);
 }
 
 .editorial-visual::before {
   content: "";
   min-height: 260px;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.5), rgba(8, 13, 12, 0.1)),
-    repeating-linear-gradient(90deg, transparent 0 58px, rgba(8, 13, 12, 0.14) 59px 60px),
-    repeating-linear-gradient(0deg, transparent 0 46px, rgba(8, 13, 12, 0.1) 47px 48px);
+    linear-gradient(rgba(255, 247, 231, 0.12), rgba(255, 247, 231, 0.02)),
+    repeating-linear-gradient(90deg, transparent 0 58px, rgba(255, 247, 231, 0.12) 59px 60px),
+    repeating-linear-gradient(0deg, transparent 0 46px, rgba(255, 247, 231, 0.08) 47px 48px);
 }
 
 .yard-card {
@@ -877,14 +1072,14 @@ main {
   justify-content: space-between;
   gap: 18px;
   padding: 22px;
-  background: #fbfaf5;
-  color: rgba(8, 13, 12, 0.56);
+  background: rgba(255, 247, 231, 0.07);
+  color: rgba(214, 208, 199, 0.78);
   font-size: 13px;
   text-transform: uppercase;
 }
 
 .yard-card b {
-  color: #27470e;
+  color: #dfffb0;
 }
 
 .os-section {
@@ -967,11 +1162,12 @@ main {
 .services {
   padding: 150px clamp(22px, 6vw, 84px);
   background:
-    linear-gradient(rgba(8, 13, 12, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8, 13, 12, 0.055) 1px, transparent 1px),
-    rgba(251, 250, 245, 0.9);
+    radial-gradient(circle at 16% 8%, rgba(255, 179, 86, 0.14), transparent 28%),
+    linear-gradient(rgba(255, 247, 231, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 247, 231, 0.055) 1px, transparent 1px),
+    rgba(8, 11, 11, 0.86);
   background-size: 44px 44px;
-  color: #080d0c;
+  color: #f5f2ea;
 }
 
 .services h2 {
@@ -987,26 +1183,26 @@ main {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   margin-top: 70px;
-  border: 1px solid rgba(8, 13, 12, 0.13);
-  background: rgba(8, 13, 12, 0.13);
+  border: 1px solid rgba(255, 247, 231, 0.14);
+  background: rgba(255, 247, 231, 0.12);
 }
 
 .service-card {
   min-height: 280px;
   padding: 32px;
   background:
-    linear-gradient(135deg, rgba(154, 255, 199, 0.08), transparent 40%),
-    #fbfaf5;
+    linear-gradient(135deg, rgba(183, 255, 53, 0.07), transparent 40%),
+    rgba(255, 247, 231, 0.065);
   transition: background 0.35s ease, transform 0.35s ease;
 }
 
 .service-card:hover {
   transform: translateY(-4px);
-  background: #ffffff;
+  background: rgba(255, 247, 231, 0.105);
 }
 
 .service-card svg {
-  color: #315f49;
+  color: #dfffb0;
 }
 
 .service-card h3 {
@@ -1017,7 +1213,7 @@ main {
 
 .service-card p {
   margin: 0;
-  color: rgba(8, 13, 12, 0.58);
+  color: rgba(214, 208, 199, 0.74);
   line-height: 1.55;
 }
 
@@ -1214,11 +1410,12 @@ main {
 .trust {
   padding: 140px clamp(22px, 6vw, 84px);
   background:
-    linear-gradient(rgba(8, 13, 12, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8, 13, 12, 0.055) 1px, transparent 1px),
-    rgba(251, 250, 245, 0.92);
+    radial-gradient(circle at 78% 18%, rgba(255, 190, 104, 0.14), transparent 26%),
+    linear-gradient(rgba(255, 247, 231, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 247, 231, 0.055) 1px, transparent 1px),
+    rgba(9, 12, 12, 0.88);
   background-size: 44px 44px;
-  color: #080d0c;
+  color: #f5f2ea;
 }
 
 .trust h2 {
@@ -1234,16 +1431,16 @@ main {
   grid-template-columns: repeat(6, 1fr);
   gap: 1px;
   margin-top: 64px;
-  background: rgba(8, 13, 12, 0.14);
-  border: 1px solid rgba(8, 13, 12, 0.14);
+  background: rgba(255, 247, 231, 0.12);
+  border: 1px solid rgba(255, 247, 231, 0.14);
 }
 
 .trust span {
   display: grid;
   min-height: 120px;
   place-items: center;
-  background: #fbfaf5;
-  color: rgba(8, 13, 12, 0.42);
+  background: rgba(255, 247, 231, 0.065);
+  color: rgba(214, 208, 199, 0.7);
   font-family: var(--font-space), sans-serif;
   font-weight: 700;
 }
@@ -1335,7 +1532,7 @@ main {
 .cta-actions a:first-child {
   border-color: #b7ff35;
   background: #b7ff35;
-  color: #07100d;
+  color: #263416;
 }
 
 .footer-grid {

@@ -63,6 +63,9 @@ function JourneyRig() {
   const buildings = Array.from({ length: 12 }, (_, index) => index);
   const homes = Array.from({ length: 9 }, (_, index) => index);
   const lamps = Array.from({ length: 10 }, (_, index) => index);
+  const containers = Array.from({ length: 12 }, (_, index) => index);
+  const docks = Array.from({ length: 8 }, (_, index) => index);
+  const terminalTrucks = Array.from({ length: 6 }, (_, index) => index);
 
   return (
     <div className="journey-rig" aria-hidden="true">
@@ -81,6 +84,23 @@ function JourneyRig() {
         <div className="tree-line tree-line-right">
           {trees.map((tree) => (
             <span key={`right-tree-${tree}`} style={{ "--i": tree } as CSSProperties} />
+          ))}
+        </div>
+      </div>
+      <div className="environment-layer env-industrial" id="envIndustrial">
+        <div className="warehouse-row">
+          <span className="warehouse-main" />
+          <span className="warehouse-annex" />
+          <span className="warehouse-lights" />
+        </div>
+        <div className="container-stack">
+          {containers.map((container) => (
+            <span key={`container-${container}`} style={{ "--i": container } as CSSProperties} />
+          ))}
+        </div>
+        <div className="dock-row">
+          {docks.map((dock) => (
+            <span key={`dock-${dock}`} style={{ "--i": dock } as CSSProperties} />
           ))}
         </div>
       </div>
@@ -107,13 +127,26 @@ function JourneyRig() {
           ))}
         </div>
       </div>
-      <div className="environment-layer env-open" id="envOpen">
-        <div className="hill-line" />
+      <div className="environment-layer env-mountain" id="envMountain">
+        <div className="mountain-range" />
+        <div className="pine-line" />
         <div className="road-sign sign-one">I-70</div>
-        <div className="road-sign sign-two">KANSAS</div>
+        <div className="road-sign sign-two">WEST</div>
       </div>
-      <div className="environment-layer env-night" id="envNight">
-        <div className="night-city" />
+      <div className="environment-layer env-terminal" id="envTerminal">
+        <div className="terminal-warehouse">
+          <div className="dock-numbers">
+            {docks.map((dock) => (
+              <span key={`dock-number-${dock}`}>{String(dock + 1).padStart(2, "0")}</span>
+            ))}
+          </div>
+        </div>
+        <div className="terminal-containers" />
+        <div className="parked-trucks">
+          {terminalTrucks.map((truck) => (
+            <span key={`terminal-truck-${truck}`} style={{ "--i": truck } as CSSProperties} />
+          ))}
+        </div>
         <div className="lamp-line">
           {lamps.map((lamp) => (
             <span key={`lamp-${lamp}`} style={{ "--i": lamp } as CSSProperties} />
@@ -497,9 +530,10 @@ export default function Home() {
 
       gsap.set("#truckRig", { xPercent: -50, yPercent: -50, ...start, rotate: 0 });
       gsap.set(["#skyNoon", "#skySunset", "#skyNight"], { opacity: 0 });
-      gsap.set(["#envTrees", "#envCoast", "#envCity", "#envSuburb", "#envOpen", "#envNight"], {
-        opacity: 0,
-      });
+      gsap.set(
+        ["#envTrees", "#envIndustrial", "#envCity", "#envSuburb", "#envCoast", "#envMountain", "#envTerminal"],
+        { opacity: 0 },
+      );
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -516,9 +550,9 @@ export default function Home() {
         .to("#sunGlow", { left: "68%", top: "21%", scale: 1.26, duration: 1.25, ease: "none" }, 0.45)
         .to("#truckRig", { ...points[1], duration: 1.1, ease: "none" }, 1.1)
         .to("#envTrees", { opacity: 0, duration: 0.42, ease: "none" }, 1.05)
-        .to("#envCoast", { opacity: 1, duration: 0.55, ease: "none" }, 1.15)
+        .to("#envIndustrial", { opacity: 1, duration: 0.55, ease: "none" }, 1.15)
         .to("#truckRig", { ...points[2], duration: 1.1, ease: "none" }, 2.2)
-        .to("#envCoast", { opacity: 0, duration: 0.42, ease: "none" }, 2.05)
+        .to("#envIndustrial", { opacity: 0, duration: 0.42, ease: "none" }, 2.05)
         .to("#envCity", { opacity: 1, duration: 0.55, ease: "none" }, 2.15)
         .to("#truckRig", { ...points[3], duration: 1.1, ease: "none" }, 3.3)
         .to("#envCity", { opacity: 0, duration: 0.42, ease: "none" }, 3.05)
@@ -526,12 +560,15 @@ export default function Home() {
         .to("#skySunset", { opacity: 1, duration: 1.1, ease: "none" }, 3.25)
         .to("#truckRig", { ...points[4], duration: 1.1, ease: "none" }, 4.4)
         .to("#envSuburb", { opacity: 0, duration: 0.42, ease: "none" }, 4.05)
-        .to("#envOpen", { opacity: 1, duration: 0.55, ease: "none" }, 4.15)
+        .to("#envCoast", { opacity: 1, duration: 0.55, ease: "none" }, 4.15)
+        .to("#envCoast", { opacity: 0, duration: 0.42, ease: "none" }, 4.95)
+        .to("#envMountain", { opacity: 1, duration: 0.55, ease: "none" }, 5.0)
         .to("#sunGlow", { left: "78%", top: "34%", opacity: 0.52, scale: 0.92, duration: 1.1, ease: "none" }, 4.35)
         .to("#truckRig", { ...points[5], duration: 1.2, ease: "none" }, 5.5)
         .to("#skyNight", { opacity: 1, duration: 1.1, ease: "none" }, 5.35)
-        .to("#envOpen", { opacity: 0, duration: 0.42, ease: "none" }, 5.45)
-        .to("#envNight", { opacity: 1, duration: 0.7, ease: "none" }, 5.55)
+        .to("#envMountain", { opacity: 0, duration: 0.42, ease: "none" }, 5.45)
+        .to("#envTerminal", { opacity: 1, duration: 0.7, ease: "none" }, 5.55)
+        .to("#truckRig", { left: mobile ? "53%" : "54%", top: mobile ? "79%" : "80%", scale: mobile ? 0.86 : 0.88, duration: 0.85, ease: "none" }, 6.25)
         .to("#sunGlow", { opacity: 0.12, scale: 0.7, duration: 0.9, ease: "none" }, 5.65);
 
       ScrollTrigger.create({
